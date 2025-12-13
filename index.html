@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 Recomendador de Películas</title>
+    <style>
+        /* Estilos CSS */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1c1c1c;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .container {
+            background-color: #2a2a2a;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 10px;
+        }
+
+        label, select, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: #f0f0f0;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button {
+            background-color: #e50914; /* Rojo tipo Netflix */
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #f40612;
+        }
+
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 50px;
+        }
+
+        #resultado p {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¿Qué Película Debería Ver Hoy?</h1>
+
+        <label for="genero">Selecciona un Género:</label>
+        <select id="genero">
+            <option value="accion">Acción</option>
+            <option value="comedia">Comedia</option>
+            <option value="drama">Drama</option>
+            <option value="cienciaFiccion">Ciencia Ficción</option>
+            <option value="animacion">Animación</option>
+        </select>
+
+        <label for="ritmo">Selecciona el Ritmo:</label>
+        <select id="ritmo">
+            <option value="rapido">Rápido (Mucha acción)</option>
+            <option value="medio">Medio (Buena trama y acción)</option>
+            <option value="lento">Lento (Más enfocado en personajes)</option>
+        </select>
+
+        <button onclick="recomendarPelicula()">Recomendar Película</button>
+
+        <div id="resultado">
+            <p>Usa los filtros para encontrar tu próxima película.</p>
+        </div>
+    </div>
+
+    <script>
+        // Base de Datos de Películas (Simulada)
+        const baseDeDatos = {
+            accion: {
+                rapido: ["Mad Max: Furia en el Camino", "Misión Imposible: Sentencia Mortal"],
+                medio: ["Inception", "Skyfall"],
+                lento: ["Drive", "El Caballero Oscuro"]
+            },
+            comedia: {
+                rapido: ["Superbad", "Guardianes de la Galaxia"],
+                medio: ["Amelie", "Little Miss Sunshine"],
+                lento: ["Lost in Translation", "El Gran Hotel Budapest"]
+            },
+            drama: {
+                rapido: ["El Lobo de Wall Street", "Parásitos"],
+                medio: ["La La Land", "Mujercitas"],
+                lento: ["Cadena Perpetua", "Manchester frente al mar"]
+            },
+            cienciaFiccion: {
+                rapido: ["Dune", "Avatar"],
+                medio: ["Arrival", "Blade Runner 2049"],
+                lento: ["Stalker", "2001: Una Odisea del Espacio"]
+            },
+            animacion: {
+                rapido: ["Spider-Man: Into the Spider-Verse", "Los Increíbles"],
+                medio: ["Coco", "Toy Story"],
+                lento: ["El Viaje de Chihiro", "Wall-E"]
+            }
+        };
+
+        function recomendarPelicula() {
+            // 1. Obtener los valores seleccionados por el usuario
+            const generoSeleccionado = document.getElementById('genero').value;
+            const ritmoSeleccionado = document.getElementById('ritmo').value;
+            const resultadoDiv = document.getElementById('resultado');
+
+            // 2. Verificar si la combinación existe en la base de datos
+            const peliculasPorFiltro = baseDeDatos[generoSeleccionado] ? baseDeDatos[generoSeleccionado][ritmoSeleccionado] : null;
+
+            if (peliculasPorFiltro && peliculasPorFiltro.length > 0) {
+                // 3. Seleccionar una película aleatoriamente de la lista
+                const indiceAleatorio = Math.floor(Math.random() * peliculasPorFiltro.length);
+                const recomendacion = peliculasPorFiltro[indiceAleatorio];
+
+                // 4. Mostrar el resultado
+                resultadoDiv.innerHTML = `<p>¡Tu película recomendada es: <br> ${recomendacion}!</p>`;
+            } else {
+                // Mensaje si no hay películas para esa combinación (debería ser raro con esta base)
+                resultadoDiv.innerHTML = `<p>Lo sentimos, no encontramos una película para esa combinación. ¡Prueba otro filtro!</p>`;
+            }
+        }
+    </script>
+</body>
+</html>
