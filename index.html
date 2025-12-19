@@ -3,271 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎬 Recomendador de Películas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>MoviePicker Pro | Recomendador de Cine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Estilos CSS existentes... (Sin cambios mayores aquí) */
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #121212; /* Fondo más oscuro */
-            color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column; /* Nuevo: para alinear el contenido y el footer */
-            justify-content: flex-start;
-            align-items: center;
-            min-height: 100vh;
-            padding-top: 50px;
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #fbbf24; /* Dorado elegante */
+            --accent-hover: #f59e0b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
         }
 
-        .container {
-            background-color: #1c1c1c; /* Contenedor gris oscuro */
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
-            width: 90%;
-            max-width: 600px;
-            border: 4px solid #e50914; /* Borde rojo estilo Netflix */
-            margin-bottom: 30px; /* Espacio antes del footer */
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at top right, #1e1b4b, var(--bg-color));
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
         }
 
         h1 {
-            color: #e50914; /* Rojo de acento */
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #333;
-            padding-bottom: 15px;
+            font-size: 28px;
             font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        label, select, button {
-            display: block;
-            width: 100%;
-            margin-bottom: 20px;
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
         }
 
         label {
-            font-weight: bold;
-            color: #f0f0f0;
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
             margin-bottom: 8px;
+            margin-left: 4px;
         }
 
         select {
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: #f0f0f0;
+            width: 100%;
+            padding: 14px 16px;
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: white;
             font-size: 16px;
             cursor: pointer;
+            outline: none;
             appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f0f0f0%22%20d%3D%22M287%2069.1c-3.2-3.2-8.4-3.2-11.6%200L146.2%20202.7%2017%2069.1c-3.2-3.2-8.4-3.2-11.6%200-3.2%203.2-3.2%208.4%200%2011.6l135.9%20135.8c3.2%203.2%208.4%203.2%2011.6%200l135.8-135.8c3.2-3.2%203.2-8.4%200-11.6z%22%2F%3E%3C%2Fsvg%3E');
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 10px top 50%;
-            background-size: 10px auto;
+            background-position: right 16px center;
+            background-size: 18px;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
         }
 
         button {
-            background-color: #e50914;
-            color: white;
-            padding: 14px 25px;
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            color: #000;
             border: none;
-            border-radius: 6px;
-            font-size: 18px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.1s;
-            letter-spacing: 1px;
-            box-shadow: 0 4px #b80710;
+            margin-top: 10px;
+            box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
         }
 
         button:hover {
-            background-color: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(251, 191, 36, 0.4);
         }
-        
+
         button:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px #b80710;
+            transform: translateY(0);
         }
 
         #resultado {
-            margin-top: 35px;
-            padding: 25px;
-            background-color: #2a2a2a;
-            border-radius: 8px;
+            margin-top: 30px;
+            padding: 24px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
             text-align: center;
-            min-height: 80px;
-            border: 2px dashed #ffcc00;
-            transition: all 0.5s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        #resultado .titulo-rec {
-            font-size: 16px;
-            font-weight: normal;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
+        .res-pre { font-size: 13px; color: var(--accent); font-weight: 600; margin: 0; text-transform: uppercase; }
+        .res-title { font-size: 24px; font-weight: 700; margin: 8px 0; color: #fff; }
+        .res-meta { font-size: 14px; color: var(--text-muted); }
 
-        #resultado .titulo-pelicula {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffcc00; 
-            margin: 0 0 10px 0;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-        }
-
-        #resultado .detalles-pelicula {
-            font-size: 18px;
-            font-weight: normal;
-            color: #f0f0f0;
-            margin: 0;
-        }
-        
-        /* Nuevo estilo para el Copyright */
-        #footer-copyright {
-            color: #666; /* Gris más claro para el texto */
-            font-size: 14px;
-            padding: 10px;
+        footer {
+            margin-top: 40px;
+            color: var(--text-muted);
+            font-size: 12px;
             text-align: center;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🍿 ¿Qué Película Debería Ver Hoy?</h1>
 
-        <label for="genero">Selecciona un Género:</label>
-        <select id="genero">
-            <option value="accion">Acción</option>
-            <option value="comedia">Comedia</option>
-            <option value="drama">Drama</option>
-            <option value="cienciaFiccion">Ciencia Ficción</option>
-            <option value="animacion">Animación</option>
-        </select>
+    <div class="main-card">
+        <header>
+            <h1>MoviePicker Pro</h1>
+            <p class="subtitle">Encuentra la cinta perfecta para tu estado de ánimo</p>
+            <p class="subtitle">Este sitio esta en fase de prueba</p>
+        </header>
 
-        <label for="ritmo">Selecciona el Ritmo:</label>
-        <select id="ritmo">
-            <option value="rapido">Rápido (Mucha acción)</option>
-            <option value="medio">Medio (Buena trama y acción)</option>
-            <option value="lento">Lento (Más enfocado en personajes)</option>
-        </select>
+        <div class="form-group">
+            <label>Género</label>
+            <select id="genero">
+                <option value="accion">Acción</option>
+                <option value="comedia">Comedia</option>
+                <option value="drama">Drama</option>
+                <option value="cienciaFiccion">Ciencia Ficción</option>
+                <option value="animacion">Animación</option>
+            </select>
+        </div>
 
-        <button onclick="recomendarPelicula()">Recomendar Película</button>
+        <div class="form-group">
+            <label>Ritmo Cinematográfico</label>
+            <select id="ritmo">
+                <option value="rapido">Dinámico e Intenso</option>
+                <option value="medio">Equilibrado</option>
+                <option value="lento">Inmersivo y Profundo</option>
+            </select>
+        </div>
+
+        <button onclick="recomendarPelicula()">Generar Recomendación</button>
 
         <div id="resultado">
-            <p class="titulo-pelicula">Usa los filtros para encontrar tu próxima película.</p>
+            <p style="color: var(--text-muted);">Ajusta los filtros y presiona el botón para comenzar.</p>
         </div>
     </div>
 
-    <div id="footer-copyright">
-        <p>&copy; <span id="currentYear"></span> Derechos Reservados.</p>
-    </div>
+    <footer>
+        <p>&copy; <span id="currentYear"></span> Cinema | en fase de prueba. Todos los derechos reservados.</p>
+    </footer>
 
     <script>
-        // Base de Datos de Películas (Simulada con objetos mejorados)
         const baseDeDatos = {
             accion: {
                 rapido: [
-                    { titulo: "Mad Max: Furia en el Camino", anio: 2015, rating: 8.1 },
-                    { titulo: "Misión Imposible: Sentencia Mortal", anio: 2023, rating: 7.8 },
+                    { titulo: "Mad Max: Fury Road", anio: 2015, rating: 8.1 },
                     { titulo: "John Wick 4", anio: 2023, rating: 7.7 }
                 ],
                 medio: [
                     { titulo: "Inception", anio: 2010, rating: 8.8 },
-                    { titulo: "Skyfall", anio: 2012, rating: 7.7 },
                     { titulo: "Matrix", anio: 1999, rating: 8.7 }
                 ],
                 lento: [
                     { titulo: "Drive", anio: 2011, rating: 7.8 },
-                    { titulo: "El Caballero Oscuro", anio: 2008, rating: 9.0 }
+                    { titulo: "The Batman", anio: 2022, rating: 7.8 }
                 ]
             },
             comedia: {
-                rapido: [
-                    { titulo: "Superbad", anio: 2007, rating: 7.6 },
-                    { titulo: "Guardianes de la Galaxia", anio: 2014, rating: 8.0 }
-                ],
-                medio: [
-                    { titulo: "Amelie", anio: 2001, rating: 8.3 },
-                    { titulo: "Little Miss Sunshine", anio: 2006, rating: 7.8 }
-                ],
-                lento: [
-                    { titulo: "Lost in Translation", anio: 2003, rating: 7.7 },
-                    { titulo: "El Gran Hotel Budapest", anio: 2014, rating: 8.1 }
-                ]
+                rapido: [{ titulo: "Superbad", anio: 2007, rating: 7.6 }],
+                medio: [{ titulo: "Little Miss Sunshine", anio: 2006, rating: 7.8 }],
+                lento: [{ titulo: "The Grand Budapest Hotel", anio: 2014, rating: 8.1 }]
             },
             drama: {
-                rapido: [
-                    { titulo: "El Lobo de Wall Street", anio: 2013, rating: 8.2 },
-                    { titulo: "Parásitos", anio: 2019, rating: 8.5 }
-                ],
-                medio: [
-                    { titulo: "La La Land", anio: 2016, rating: 7.9 },
-                    { titulo: "Mujercitas", anio: 2019, rating: 7.8 }
-                ],
-                lento: [
-                    { titulo: "Cadena Perpetua", anio: 1994, rating: 9.3 },
-                    { titulo: "Manchester frente al mar", anio: 2016, rating: 7.8 }
-                ]
+                rapido: [{ titulo: "Parasite", anio: 2019, rating: 8.5 }],
+                medio: [{ titulo: "La La Land", anio: 2016, rating: 7.9 }],
+                lento: [{ titulo: "The Shawshank Redemption", anio: 1994, rating: 9.3 }]
             },
             cienciaFiccion: {
-                rapido: [
-                    { titulo: "Dune", anio: 2021, rating: 8.0 },
-                    { titulo: "Avatar", anio: 2009, rating: 7.9 }
-                ],
-                medio: [
-                    { titulo: "Arrival", anio: 2016, rating: 7.9 },
-                    { titulo: "Blade Runner 2049", anio: 2017, rating: 8.0 }
-                ],
-                lento: [
-                    { titulo: "Stalker", anio: 1979, rating: 8.1 },
-                    { titulo: "2001: Una Odisea del Espacio", anio: 1968, rating: 8.3 }
-                ]
+                rapido: [{ titulo: "Dune", anio: 2021, rating: 8.0 }],
+                medio: [{ titulo: "Blade Runner 2049", anio: 2017, rating: 8.0 }],
+                lento: [{ titulo: "2001: A Space Odyssey", anio: 1968, rating: 8.3 }]
             },
             animacion: {
-                rapido: [
-                    { titulo: "Spider-Man: Into the Spider-Verse", anio: 2018, rating: 8.4 },
-                    { titulo: "Los Increíbles", anio: 2004, rating: 8.0 }
-                ],
-                medio: [
-                    { titulo: "Coco", anio: 2017, rating: 8.4 },
-                    { titulo: "Toy Story", anio: 1995, rating: 8.3 }
-                ],
-                lento: [
-                    { titulo: "El Viaje de Chihiro", anio: 2001, rating: 8.6 },
-                    { titulo: "Wall-E", anio: 2008, rating: 8.4 }
-                ]
+                rapido: [{ titulo: "Spider-Man: Across the Spider-Verse", anio: 2023, rating: 8.6 }],
+                medio: [{ titulo: "Coco", anio: 2017, rating: 8.4 }],
+                lento: [{ titulo: "Spirited Away", anio: 2001, rating: 8.6 }]
             }
         };
 
         function recomendarPelicula() {
-            // 1. Obtener los valores seleccionados por el usuario
-            const generoSeleccionado = document.getElementById('genero').value;
-            const ritmoSeleccionado = document.getElementById('ritmo').value;
-            const resultadoDiv = document.getElementById('resultado');
+            const genero = document.getElementById('genero').value;
+            const ritmo = document.getElementById('ritmo').value;
+            const resDiv = document.getElementById('resultado');
 
-            // 2. Acceder a la lista de películas para la combinación seleccionada
-            const peliculasPorFiltro = baseDeDatos[generoSeleccionado]?.[ritmoSeleccionado];
+            const lista = baseDeDatos[genero]?.[ritmo];
 
-            if (peliculasPorFiltro && peliculasPorFiltro.length > 0) {
-                // 3. Seleccionar una película aleatoriamente (Ahora es un objeto)
-                const indiceAleatorio = Math.floor(Math.random() * peliculasPorFiltro.length);
-                const recomendacion = peliculasPorFiltro[indiceAleatorio];
-
-                // 4. Mostrar el resultado con formato detallado
-                resultadoDiv.innerHTML = `
-                    <p class="titulo-rec">¡Tu película recomendada es:</p>
-                    <p class="titulo-pelicula">${recomendacion.titulo}!</p>
-                    <p class="detalles-pelicula">Año: ${recomendacion.anio} | Calificación: ⭐ ${recomendacion.rating}</p>
-                `;
-            } else {
-                // Mensaje de fallback
-                resultadoDiv.innerHTML = `<p class="titulo-pelicula">Lo sentimos, no encontramos una película para esa combinación. ¡Prueba otro filtro!</p>`;
+            if (lista && lista.length > 0) {
+                const pelicula = lista[Math.floor(Math.random() * lista.length)];
+                
+                // Efecto de carga visual breve
+                resDiv.style.opacity = "0";
+                
+                setTimeout(() => {
+                    resDiv.innerHTML = `
+                        <p class="res-pre">Nuestra Selección</p>
+                        <p class="res-title">${pelicula.titulo}</p>
+                        <p class="res-meta">${pelicula.anio} &nbsp;•&nbsp; ⭐ ${pelicula.rating} IMDb</p>
+                    `;
+                    resDiv.style.opacity = "1";
+                }, 200);
             }
         }
 
-        // Script para actualizar el año automáticamente
         document.getElementById('currentYear').textContent = new Date().getFullYear();
     </script>
 </body>
